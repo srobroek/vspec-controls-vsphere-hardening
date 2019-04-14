@@ -3,17 +3,14 @@
 
 title 'vSphere 6.7u1 security configuration guide'
 
-hosts = stub
-vms = stub
-dvsportgroups = stub
-vssportgroups = stub
-dvs = stub
-vss = stub
-
-# you can also use plain tests
+hosts = 'stub'
+vms = 'stub'
+dvsportgroups = 'stub'
+vssportgroups = 'stub'
+dvs = 'stub'
+vss = 'stub'
 
 
-# you add controls here
 
 
 control 'ESXi.apply-patches' do                        # A unique ID for this control
