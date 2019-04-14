@@ -4,6 +4,11 @@
 title 'vSphere 6.7u1 security configuration guide'
 
 hosts = stub
+vms = stub
+dvsportgroups = stub
+vssportgroups = stub
+dvs = stub
+vss = stub
 
 # you can also use plain tests
 
@@ -390,7 +395,7 @@ control 'VM.disable-console-paste' do                        # A unique ID for t
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -407,7 +412,7 @@ control 'VM.disable-disk-shrinking-shrink' do                        # A unique 
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -424,7 +429,7 @@ control 'VM.disable-disk-shrinking-wiper' do                        # A unique I
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -441,7 +446,7 @@ control 'VM.disable-independent-nonpersistent' do                        # A uni
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -457,7 +462,7 @@ control 'VM.disable-non-essential-3D-features' do                        # A uni
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -474,7 +479,7 @@ control 'VM.disconnect-devices-floppy' do                        # A unique ID f
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -491,7 +496,7 @@ control 'VM.disconnect-devices-parallel' do                        # A unique ID
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -508,7 +513,7 @@ control 'VM.disconnect-devices-serial' do                        # A unique ID f
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -524,7 +529,7 @@ control 'VM.Enable-VGA-Only-Mode' do                        # A unique ID for th
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -541,7 +546,7 @@ control 'VM.limit-setinfo-size' do                        # A unique ID for this
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -557,7 +562,7 @@ control 'VM.minimize-console-VNC-use' do                        # A unique ID fo
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -575,7 +580,7 @@ control 'VM.restrict-host-info' do                        # A unique ID for this
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -585,7 +590,7 @@ end
 
 control 'VM.TransparentPageSharing-inter-VM-Enabled' do                        # A unique ID for this control
   impact 0.5                                # The criticality, if this control fails.
-  title 'Check for enablement of salted VM's that are sharing memory pages'             # A human-readable title
+  title 'Check for enablement of salted VM\'s that are sharing memory pages'             # A human-readable title
   desc 'When salting is enabled (Mem.ShareForceSalting=1 or 2) in order to share a page between two virtual machines both salt and the content of the page must be same. A salt value is a configurable vmx option for each virtual machine. You can manually specify the salt values in the virtual machine\'s vmx file with the new vmx option sched.mem.pshare.salt. If this option is not present in the virtual machine\'s vmx file, then the value of vc.uuid vmx option is taken as the default value. Since the vc.uuid is unique to each virtual machine, by default TPS happens only among the pages belonging to a particular virtual machine (Intra-VM).If a group of virtual machines are considered trustworthy, it is possible to share pages among them by setting a common salt value for all those virtual machines (inter-VM).Default value is null. When this happens the VM has a random salt value generated.'
   tag disa: 'VMCH-06-000040'
   ref "reference", url: "https://kb.vmware.com/kb/2080735"
@@ -594,7 +599,7 @@ control 'VM.TransparentPageSharing-inter-VM-Enabled' do                        #
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -611,7 +616,7 @@ control 'VM.verify-network-filter' do                        # A unique ID for t
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -628,7 +633,7 @@ control 'VM.verify-PCI-Passthrough' do                        # A unique ID for 
 
   
 
-  hosts.each do |h|  
+  vms.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -684,7 +689,7 @@ control 'vNetwork.reject-forged-transmit-dvportgroup' do                        
 
   
 
-  hosts.each do |h|  
+  dvsportgroup.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -702,7 +707,7 @@ control 'vNetwork.reject-forged-transmit-StandardSwitch' do                     
 
   
 
-  hosts.each do |h|  
+  vss.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -719,7 +724,7 @@ control 'vNetwork.reject-mac-changes-dvportgroup' do                        # A 
 
   
 
-  hosts.each do |h|  
+  dvsportgroup.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -736,7 +741,7 @@ control 'vNetwork.reject-mac-changes-StandardSwitch' do                        #
 
   
 
-  hosts.each do |h|  
+  vss.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -753,7 +758,7 @@ control 'vNetwork.reject-promiscuous-mode-dvportgroup' do                       
 
   
 
-  hosts.each do |h|  
+  dvsportgroup.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -772,7 +777,7 @@ control 'vNetwork.reject-promiscuous-mode-StandardSwitch' do                    
 
   
 
-  hosts.each do |h|  
+  vss.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -790,7 +795,7 @@ control 'vNetwork.restrict-netflow-usage' do                        # A unique I
 
   
 
-  hosts.each do |h|  
+  dvs.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
@@ -808,7 +813,7 @@ control 'vNetwork.restrict-port-level-overrides' do                        # A u
 
   
 
-  hosts.each do |h|  
+  vds.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
     end
