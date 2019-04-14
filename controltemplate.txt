@@ -1,0 +1,16 @@
+control 'CONTROL_ID_VAR' do                        # A unique ID for this control
+  impact 0.5                                # The criticality, if this control fails.
+  title 'CONTROL_TITLE_VAR'             # A human-readable title
+  desc 'CONTROL_DESC_VAR'
+  tag disa: 'CONTROL_STIG_ID_VAR'
+CONTROL_REF_VAR
+  
+
+  hosts.each do |h|  
+    describe esxi(h) do
+      its('something') { should cmp 'something'}
+    end
+  end
+end
+
+
