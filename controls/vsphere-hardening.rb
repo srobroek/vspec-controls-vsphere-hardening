@@ -3,6 +3,7 @@
 
 title 'vSphere 6.7u1 security configuration guide'
 
+dcs = 'stub'
 hosts = 'stub'
 vms = 'stub'
 dvsportgroups = 'stub'
@@ -26,6 +27,43 @@ control 'ESXi.apply-patches' do                        # A unique ID for this co
   hosts.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
+      #CANTDO
+    end
+  end
+end
+
+control 'ESXi.Audit-SSH-Disable' do                        # A unique ID for this control
+  impact 0.5                                # The criticality, if this control fails.
+  title 'Ensure that the SSH default disablement has not been changed'             # A human-readable title
+  desc 'SSH is disabled by default on ESXi. The use of SSH to an ESXi host should be limited in scope and use. SSH enablement is controlled via the SSH service. This service is stopped by default. '
+  tag disa: 'ESXI-06-000035'
+
+
+  
+
+  hosts.each do |h|  
+    describe esxi(h) do
+      its('something') { should cmp 'something'}
+    end
+  end
+end
+
+control 'ESXi.config-ntp' do                        # A unique ID for this control
+  impact 0.5                                # The criticality, if this control fails.
+  title 'Configure NTP time synchronization'             # A human-readable title
+  desc 'By ensuring that all systems use the same relative time source (including the relevant localization offset), and that the relative time source can be correlated to an agreed-upon time standard (such as Coordinated Universal Time—UTC), you can make it simpler to track and correlate an intruder’s actions when reviewing the relevant log files. Incorrect time settings can make it difficult to inspect and correlate log files to detect attacks, and can make auditing inaccurate.'
+  tag disa: 'ESXI-06-000046,ESXI-06-100046'
+  ref "reference", url: "http://pubs.vmware.com/vsphere-67/topic/com.vmware.vsphere.security.doc/GUID-2553C86E-7981-4F79-B9FC-A6CECA52F6CC.htmll"
+
+
+  
+
+  hosts.each do |h|  
+    describe esxi(h) do
+      its('something') { should cmp 'something'}
+      #@hosts[0].configManager.dateTimeSystem.dateTimeInfo.ntpConfig.server - checks config of NTP
+      #@henk = @hosts[0].configManager.serviceSystem.serviceInfo.service.detect{|service| service.key == 'ntpd'} - select policy, running, ruleset
+
     end
   end
 end
@@ -44,9 +82,14 @@ control 'ESXi.config-persistent-logs' do                        # A unique ID fo
   hosts.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
+      #@hosts[0].configManager.advancedOption.QueryOptions({"name" => "Syslog.global.loghost"})[0].key
+      #@hosts[0].configManager.advancedOption.setting
+
     end
   end
 end
+
+
 
 
 control 'ESXi.config-snmp' do                        # A unique ID for this control
@@ -80,6 +123,7 @@ control 'ESXi.disable-mob' do                        # A unique ID for this cont
   hosts.each do |h|  
     describe esxi(h) do
       its('something') { should cmp 'something'}
+      ## @hosts[0].configManager.advancedOption.QueryOptions({"name" => "Config.HostAgent.plugins.solo.enableMob"})
     end
   end
 end
